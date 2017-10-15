@@ -1,7 +1,14 @@
-package com.sn.stream.dto;
+/**
+ * Testing various stream API functions
+ */
+package com.sn.stream;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sn.stream.dto.Trader;
+import com.sn.stream.dto.Transaction;
+
 import static java.util.stream.Collectors.*;
 
 public class TransactonClient {
@@ -13,7 +20,7 @@ public class TransactonClient {
 	public static void main(String[] args) {
 		TransactonClient transactionClient = new TransactonClient();
 		transactionClient.transactions2011Sorted();
-
+		transactionClient.uniqueCitiesWhereTradersWork();
 	}
 	
 	private void init(){
@@ -30,9 +37,14 @@ public class TransactonClient {
 	}
 	
 	private void transactions2011Sorted() {
+		
 		List<Transaction> transaction2011 =  transactions.stream().filter(t->t.getYear() == 2011)
 										.sorted((t1,t2)->t1.getValue() - t2.getValue()).collect(toList());
 		transaction2011.forEach(System.out::println);
+	}
+	
+	private void uniqueCitiesWhereTradersWork() {
+		transactions.stream().map(t->t.getTrader().getCity()).distinct().collect(toList()).forEach(System.out::println);
 	}
 
 }
