@@ -21,6 +21,7 @@ public class TransactonClient {
 		TransactonClient transactionClient = new TransactonClient();
 		transactionClient.transactions2011Sorted();
 		transactionClient.uniqueCitiesWhereTradersWork();
+		transactionClient.cambridgeTraders();
 	}
 	
 	private void init(){
@@ -37,14 +38,21 @@ public class TransactonClient {
 	}
 	
 	private void transactions2011Sorted() {
-		
+		System.out.println("==2011 Transactions sorted by value ==");
 		List<Transaction> transaction2011 =  transactions.stream().filter(t->t.getYear() == 2011)
 										.sorted((t1,t2)->t1.getValue() - t2.getValue()).collect(toList());
 		transaction2011.forEach(System.out::println);
 	}
 	
 	private void uniqueCitiesWhereTradersWork() {
+		System.out.println("==Cities where Traders work==");
 		transactions.stream().map(t->t.getTrader().getCity()).distinct().collect(toList()).forEach(System.out::println);
+	}
+	
+	
+	private void cambridgeTraders(){
+		System.out.println("==Traders from Cambridge==");
+		transactions.stream().filter(t->t.getTrader().getCity().equals("Cambridge")).map(t->t.getTrader()).distinct().sorted((t1,t2)->t1.getName().compareTo(t2.getName())).forEach(System.out::println);
 	}
 
 }
