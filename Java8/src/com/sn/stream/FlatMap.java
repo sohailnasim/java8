@@ -1,3 +1,6 @@
+/*
+ * Generates cartesian pairs from two integer arrays using Java8 flat map function
+ */
 package com.sn.stream;
 
 import java.util.List;
@@ -9,7 +12,8 @@ public class FlatMap {
 		List<Integer> number1 = Arrays.asList(1,2);
 		List<Integer> number2 = Arrays.asList(3,4,5);
 		List<int[]> result = number1.stream().flatMap(i->number2.stream().map(j->new int[]{i,j})).collect(toList());
-		System.out.println(result);
+		result.forEach(k->System.out.println("(" + k[0] + "," + k[1] +")"));
+		
 	}
 
 }
